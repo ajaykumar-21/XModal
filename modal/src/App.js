@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
@@ -37,52 +37,51 @@ function App() {
   return (
     <div className="model-wrapper">
       <h1>User Details Modal</h1>
-      <button onClick={()=>setShowForm(true)}>Open Form</button>
+      <button onClick={() => setShowForm(true)}>Open Form</button>
       {showForm && (
         <>
-        <div className="modal" onClick={()=>setShowForm(false)}></div>
-        <form className="modal-content" onSubmit={handleSubmit}>
-          <h1>Fill details</h1>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={obj.username}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="email">Email Address:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={obj.email}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="phone">Phone Number:</label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            value={obj.phone}
-            onChange={handleChange}
-          />
-          <label htmlFor="dob">Date of Birth:</label>
-          <input
-            type="date"
-            name="dob"
-            id="dob"
-            value={obj.dob}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" className="submit-button">
-            Submit
-          </button>
-        </form>
-        
+          <div className="modal" onClick={() => setShowForm(false)}></div>
+          <form className="modal-content" onSubmit={handleSubmit}>
+            <h1>Fill details</h1>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={obj.username}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="email">Email Address:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={obj.email}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="phone">Phone Number:</label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              value={obj.phone}
+              onChange={handleChange}
+            />
+            <label htmlFor="dob">Date of Birth:</label>
+            <input
+              type="date"
+              name="dob"
+              id="dob"
+              value={obj.dob}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" className="submit-button">
+              Submit
+            </button>
+          </form>
         </>
       )}
     </div>
