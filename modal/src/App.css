@@ -5,24 +5,6 @@
   font-family: serif;
 }
 
-/* button{
-  margin: 10px;
-  height: 40px;
-  width: 120px;
-  background-color: #4935ff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: all  0.3s ease;
-} */
-
-/* button:active{
-  transform: scale(0.96);
-  background-color:  rgba(73, 53, 255, 0.29);
-
-} */
-
 .modal-content{
   z-index: 2;
   width: 80%;
