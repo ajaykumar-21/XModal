@@ -2,87 +2,93 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
-  const [obj, setObj] = useState({
-    username: "",
-    email: "",
-    phone: "",
-    dob: "",
-  });
-  // Submit Form Functionality
-  function handleSubmit(e) {
-    e.preventDefault();
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [phone, setPhone] = useState("");
 
-    if (!obj.email.match(emailRegex)) {
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleSubmit = () => {
+    if (!username || !email || !dob || !phone) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    if (!email.includes("@")) {
       alert("Invalid email. Please check your email address.");
+      return;
     }
 
-    if (obj.phone.length !== 10) {
+    if (phone.length !== 10 || isNaN(phone)) {
       alert("Invalid phone number. Please enter a 10-digit phone number.");
+      return;
     }
 
-    if (new Date(obj.dob) > new Date()) {
-      alert("Invalid date of birth. Date of birth cannot be in the future.");
+    const today = new Date();
+    const enteredDate = new Date(dob);
+
+    if (enteredDate > today) {
+      alert("Invalid date of birth. Please enter a valid date.");
+      return;
     }
 
-    setObj({ username: "", email: "", phone: "", dob: "" });
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setObj({ ...obj, [name]: value });
-  }
+    // Here you can perform further actions like submitting the form data
+    // Reset the form
+    setUsername("");
+    setEmail("");
+    setDob("");
+    setPhone("");
+    setIsOpen(false);
+  };
 
   return (
-    <div className="model-wrapper">
+    <div className="modal">
       <h1>User Details Modal</h1>
-      <button onClick={() => setShowForm(true)}>Open Form</button>
-      {showForm && (
-        <>
-          <div className="modal" onClick={() => setShowForm(false)}></div>
-          <form className="modal-content" onSubmit={handleSubmit}>
-            <h1>Fill details</h1>
-            <label htmlFor="username">Username:</label>
+      <button onClick={handleOpenModal}>Open Form</button>
+      {isOpen && (
+        <div className="modal-content" onClick={handleCloseModal}>
+          <div className="modal-form" onClick={(e) => e.stopPropagation()}>
             <input
               type="text"
-              name="username"
+              placeholder="Username"
               id="username"
-              value={obj.username}
-              onChange={handleChange}
-              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <label htmlFor="email">Email Address:</label>
             <input
               type="email"
-              name="email"
+              placeholder="Email"
               id="email"
-              value={obj.email}
-              onChange={handleChange}
-              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor="phone">Phone Number:</label>
             <input
-              type="tel"
-              name="phone"
-              id="phone"
-              value={obj.phone}
-              onChange={handleChange}
-            />
-            <label htmlFor="dob">Date of Birth:</label>
-            <input
-              type="date"
-              name="dob"
+              type="text"
+              placeholder="Date of Birth"
               id="dob"
-              value={obj.dob}
-              onChange={handleChange}
-              required
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
             />
-            <button type="submit" className="submit-button">
+            <input
+              type="text"
+              placeholder="Phone"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <button className="submit-button" onClick={handleSubmit}>
               Submit
             </button>
-          </form>
-        </>
+          </div>
+        </div>
       )}
     </div>
   );
